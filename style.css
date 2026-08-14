@@ -2712,7 +2712,24 @@ footer {
         bottom: 15px;
 
     }
+/* =====================================================
+   MOBILE SWIPE GALLERY
+===================================================== */
 
+.product-gallery {
+    touch-action: pan-y;
+    cursor: grab;
+}
+
+.product-gallery:active {
+    cursor: grabbing;
+}
+
+.gallery-images {
+    user-select: none;
+    -webkit-user-select: none;
+}
+   
 }
 }
 }
