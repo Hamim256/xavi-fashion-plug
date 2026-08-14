@@ -919,6 +919,11 @@
 ================================================== -->
 
 <script>
+<script>
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
 
 const menuButton =
     document.querySelector(".menu-button");
@@ -926,30 +931,183 @@ const menuButton =
 const navigation =
     document.querySelector(".navigation");
 
-menuButton.addEventListener("click", () => {
 
-    navigation.classList.toggle("mobile-open");
+if (menuButton && navigation) {
 
-    menuButton.classList.toggle("active");
+    menuButton.addEventListener("click", () => {
 
-});
+        navigation.classList.toggle("mobile-open");
 
-document.querySelectorAll(".navigation a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navigation.classList.remove("mobile-open");
-
-        menuButton.classList.remove("active");
+        menuButton.classList.toggle("active");
 
     });
-function changeImage(button, direction) {
-    ...
-}
-    
-});
 
-</script>
+
+    document.querySelectorAll(".navigation a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navigation.classList.remove("mobile-open");
+
+            menuButton.classList.remove("active");
+
+        });
+
+    });
+
+}
+
+
+
+/* =====================================================
+   PRODUCT IMAGE GALLERY
+===================================================== */
+
+function showImage(gallery, index) {
+
+    const images =
+        gallery.querySelectorAll(".gallery-images img");
+
+
+    if (index >= images.length) {
+
+        index = 0;
+
+    }
+
+
+    if (index < 0) {
+
+        index = images.length - 1;
+
+    }
+
+
+    images.forEach(image => {
+
+        image.classList.remove("active");
+
+    });
+
+
+    images[index].classList.add("active");
+
+
+    const counter =
+        gallery.querySelector(".current");
+
+
+    if (counter) {
+
+        counter.textContent =
+            String(index + 1).padStart(2, "0");
+
+    }
+
+
+    gallery.dataset.current = index;
+
+}
+
+
+
+/* =====================================================
+   NEXT / PREVIOUS BUTTONS
+===================================================== */
+
+function changeImage(button, direction) {
+
+    const gallery =
+        button.closest(".product-gallery");
+
+
+    const images =
+        gallery.querySelectorAll(".gallery-images img");
+
+
+    let current =
+        Number(gallery.dataset.current || 0);
+
+
+    current += direction;
+
+
+    showImage(gallery, current);
+
+}
+
+
+
+/* =====================================================
+   PHONE SWIPE
+===================================================== */
+
+document.querySelectorAll(".product-gallery").forEach(gallery => {
+
+    let startX = 0;
+
+    let endX = 0;
+
+
+    gallery.addEventListener("touchstart", function(event) {
+
+        startX =
+            event.touches[0].clientX;
+
+    }, { passive: true });
+
+
+    gallery.addEventListener("touchend", function(event) {
+
+        endX =
+            event.changedTouches[0].clientX;
+
+
+        const difference =
+            startX - endX;
+
+
+        /* Ignore very small movements */
+
+        if (Math.abs(difference) < 50) {
+
+            return;
+
+        }
+
+
+        /* Swipe LEFT */
+
+        if (difference > 0) {
+
+            changeImage(
+                gallery.querySelector(".gallery-next"),
+                1
+            );
+
+        }
+
+
+        /* Swipe RIGHT */
+
+        else {
+
+            changeImage(
+                gallery.querySelector(".gallery-prev"),
+                -1
+            );
+
+        }
+
+    }, { passive: true });
+
+});
+    <script>
+
+        /* all the JavaScript above */
+
+    </script>
 
 </body>
+
 </html>
