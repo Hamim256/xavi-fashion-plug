@@ -1,103 +1,1274 @@
-document.querySelector("button").addEventListener("click", function () {
-    alert("Welcome to Xavi Fashion Plug!");
-    ...
-}<script>
-
 /* =====================================================
-   PRODUCT IMAGE GALLERY
+   XAVI FASHION PLUG
+   LUXURY RESPONSIVE DESIGN
 ===================================================== */
 
-function showImage(gallery, index) {
 
-    const images =
-        gallery.querySelectorAll(".gallery-images img");
-
-    if (index >= images.length) {
-        index = 0;
-    }
-
-    if (index < 0) {
-        index = images.length - 1;
-    }
-
-    images.forEach(image => {
-        image.classList.remove("active");
-    });
-
-    images[index].classList.add("active");
-
-    const counter =
-        gallery.querySelector(".current");
-
-    counter.textContent =
-        String(index + 1).padStart(2, "0");
-
-    gallery.dataset.current = index;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
-function changeImage(button, direction) {
+html {
+    scroll-behavior: smooth;
+}
 
-    const gallery =
-        button.parentElement;
 
-    const images =
-        gallery.querySelectorAll(".gallery-images img");
+body {
+    background: #f7f6f2;
+    color: #111;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
 
-    let current =
-        Number(gallery.dataset.current || 0);
 
-    current += direction;
+img {
+    display: block;
+    width: 100%;
+}
 
-    showImage(gallery, current);
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 
 /* =====================================================
-   PHONE SWIPE
+   TOP BAR
 ===================================================== */
 
-document.querySelectorAll(".product-gallery").forEach(gallery => {
 
-    let startX = 0;
-    let endX = 0;
+.top-bar {
+    background: #111;
+    color: #fff;
 
-    gallery.addEventListener("touchstart", function(event) {
+    text-align: center;
 
-        startX = event.touches[0].clientX;
+    padding: 9px;
 
-    }, { passive: true });
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
 
 
-    gallery.addEventListener("touchend", function(event) {
+/* =====================================================
+   HEADER
+===================================================== */
 
-        endX = event.changedTouches[0].clientX;
 
-        const difference = startX - endX;
+.header {
+    height: 82px;
 
-        /*
-        Only change the picture when the
-        finger moved at least 50 pixels.
-        */
+    background: #f7f6f2;
 
-        if (Math.abs(difference) < 50) {
-            return;
-        }
+    display: flex;
 
-        if (difference > 0) {
+    align-items: center;
 
-            // Swipe LEFT → next picture
-            changeImage(gallery.querySelector(".gallery-next"), 1);
+    justify-content: space-between;
 
-        } else {
+    padding: 0 5%;
 
-            // Swipe RIGHT → previous picture
-            changeImage(gallery.querySelector(".gallery-prev"), -1);
+    border-bottom: 1px solid #ddd;
 
-        }
+    position: sticky;
 
-    }, { passive: true });
+    top: 0;
 
-});
+    z-index: 100;
+}
 
-</script>
+
+.logo {
+    display: flex;
+
+    flex-direction: column;
+
+    line-height: 1;
+}
+
+
+.logo strong {
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: 28px;
+
+    letter-spacing: 4px;
+}
+
+
+.logo span {
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+    margin-top: 5px;
+}
+
+
+.nav {
+    display: flex;
+
+    gap: 35px;
+}
+
+
+.nav a {
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    transition: .3s;
+}
+
+
+.nav a:hover {
+    opacity: .5;
+}
+
+
+.header-order {
+    border: 1px solid #111;
+
+    padding: 11px 23px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.menu-toggle {
+    display: none;
+
+    border: 0;
+
+    background: none;
+
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+
+.hero {
+
+    min-height: 88vh;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(0,0,0,.75),
+        rgba(0,0,0,.25)
+    ),
+    url("black tshirt.jpeg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    color: white;
+}
+
+
+.hero-content {
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: auto;
+}
+
+
+.eyebrow {
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 20px;
+}
+
+
+.hero h1 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: clamp(
+        65px,
+        10vw,
+        145px
+    );
+
+    font-weight: 500;
+
+    line-height: .8;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 35px;
+}
+
+
+.hero-content > p:not(.eyebrow) {
+
+    max-width: 450px;
+
+    line-height: 1.8;
+
+    font-size: 13px;
+
+    margin-bottom: 35px;
+}
+
+
+.main-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 35px;
+
+    background: white;
+
+    color: #111;
+
+    padding: 17px 23px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    transition: .3s;
+}
+
+
+.main-button:hover {
+
+    background: #111;
+
+    color: white;
+
+}
+
+
+.main-button span {
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+
+.intro {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 150px 5%;
+
+    display: grid;
+
+    grid-template-columns: 100px 1fr;
+
+    gap: 60px;
+}
+
+
+.intro-number {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+.intro h2 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: clamp(
+        55px,
+        8vw,
+        100px
+    );
+
+    line-height: .85;
+
+    font-weight: 500;
+
+    margin-bottom: 40px;
+}
+
+
+.intro h2 em {
+
+    font-weight: 400;
+
+    color: #777;
+}
+
+
+.intro-text {
+
+    max-width: 500px;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+    color: #555;
+}
+
+
+/* =====================================================
+   SECTION HEADINGS
+===================================================== */
+
+
+.products-section {
+
+    padding: 100px 5%;
+}
+
+
+.section-heading {
+
+    max-width: 1200px;
+
+    margin: auto auto 80px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+}
+
+
+.section-heading h2 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: clamp(
+        55px,
+        8vw,
+        100px
+    );
+
+    line-height: .8;
+
+    font-weight: 500;
+}
+
+
+.section-heading > p {
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   CATEGORY BLOCK
+===================================================== */
+
+
+.category-block {
+
+    max-width: 1300px;
+
+    margin: 0 auto 110px;
+}
+
+
+.category-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-top: 1px solid #ccc;
+
+    padding: 25px 0;
+
+    margin-bottom: 25px;
+}
+
+
+.category-heading div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.category-heading span {
+
+    font-size: 9px;
+
+    color: #777;
+}
+
+
+.category-heading h3 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: 28px;
+
+    font-weight: 500;
+}
+
+
+.category-heading > p {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+
+.product-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+
+.product-card {
+
+    background: #fff;
+
+    transition:
+    transform .4s ease,
+    box-shadow .4s ease;
+}
+
+
+.product-card:hover {
+
+    transform:
+    translateY(-7px);
+
+    box-shadow:
+    0 20px 40px
+    rgba(0,0,0,.08);
+}
+
+
+/* =====================================================
+   PRODUCT IMAGE
+===================================================== */
+
+
+.product-image {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: #eee;
+}
+
+
+.product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+    transform .7s ease;
+
+    cursor: zoom-in;
+}
+
+
+.product-card:hover
+.product-image img {
+
+    transform:
+    scale(1.05);
+}
+
+
+.badge {
+
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    background: #111;
+
+    color: white;
+
+    padding: 7px 10px;
+
+    font-size: 7px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =====================================================
+   PRODUCT INFORMATION
+===================================================== */
+
+
+.product-info {
+
+    padding: 18px 15px 20px;
+}
+
+
+.product-info h4 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+
+.product-info p {
+
+    font-size: 11px;
+
+    color: #666;
+
+    margin-bottom: 16px;
+}
+
+
+.product-info a {
+
+    display: inline-block;
+
+    border-bottom:
+    1px solid #111;
+
+    padding-bottom: 5px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+
+.categories {
+
+    background: #111;
+
+    color: white;
+
+    padding: 120px 5%;
+}
+
+
+.categories .section-heading {
+
+    margin-bottom: 60px;
+}
+
+
+.categories h2 {
+
+    color: white;
+}
+
+
+.category-list {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    border-top:
+    1px solid #444;
+}
+
+
+.category-list a {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 25px 0;
+
+    border-bottom:
+    1px solid #444;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: 35px;
+
+    transition: .3s;
+}
+
+
+.category-list a:hover {
+
+    padding-left: 20px;
+
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+
+.about {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 150px 5%;
+
+    text-align: center;
+}
+
+
+.about h2 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: clamp(
+        60px,
+        10vw,
+        120px
+    );
+
+    line-height: .8;
+
+    font-weight: 500;
+
+    margin-bottom: 45px;
+}
+
+
+.about > p:last-child {
+
+    max-width: 550px;
+
+    margin: auto;
+
+    line-height: 1.9;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+
+.contact {
+
+    background: #e8e5df;
+
+    padding: 120px 5%;
+
+    text-align: center;
+}
+
+
+.contact h2 {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: clamp(
+        60px,
+        9vw,
+        110px
+    );
+
+    font-weight: 500;
+
+    line-height: .8;
+
+    margin-bottom: 30px;
+}
+
+
+.contact p:not(.eyebrow) {
+
+    color: #555;
+
+    margin-bottom: 35px;
+}
+
+
+.contact .main-button {
+
+    background: #111;
+
+    color: white;
+}
+
+
+.contact .main-button:hover {
+
+    background: white;
+
+    color: #111;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+
+footer {
+
+    background: #111;
+
+    color: white;
+
+    padding: 80px 5% 25px;
+}
+
+
+.footer-logo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 70px;
+}
+
+
+.footer-logo strong {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size: 55px;
+
+    letter-spacing: 5px;
+}
+
+
+.footer-logo span {
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+
+.footer-links {
+
+    display: flex;
+
+    gap: 35px;
+
+    margin-bottom: 60px;
+}
+
+
+.footer-links a {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.footer-bottom {
+
+    border-top:
+    1px solid #333;
+
+    padding-top: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    color: #999;
+}
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+
+.lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+    rgba(0,0,0,.92);
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+.lightbox.active {
+
+    display: flex;
+}
+
+
+.lightbox img {
+
+    max-width: 90vw;
+
+    max-height: 90vh;
+
+    width: auto;
+
+    object-fit: contain;
+}
+
+
+.lightbox-close {
+
+    position: absolute;
+
+    top: 25px;
+
+    right: 30px;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-size: 40px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+
+@media (max-width: 900px) {
+
+
+    .nav {
+
+        position: absolute;
+
+        top: 82px;
+
+        left: 0;
+
+        width: 100%;
+
+        background: #f7f6f2;
+
+        display: none;
+
+        flex-direction: column;
+
+        padding: 25px 5%;
+
+        border-bottom:
+        1px solid #ddd;
+
+        gap: 25px;
+    }
+
+
+    .nav.show {
+
+        display: flex;
+
+    }
+
+
+    .menu-toggle {
+
+        display: block;
+
+        order: -1;
+    }
+
+
+    .header-order {
+
+        padding: 9px 14px;
+
+    }
+
+
+    .product-grid {
+
+        grid-template-columns:
+        repeat(2, 1fr);
+
+        gap: 12px;
+
+    }
+
+
+    .product-info {
+
+        padding: 14px 10px 18px;
+
+    }
+
+
+    .product-info h4 {
+
+        font-size: 18px;
+
+    }
+
+
+    .category-heading {
+
+        align-items: start;
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+
+@media (max-width: 500px) {
+
+
+    .top-bar {
+
+        font-size: 7px;
+
+        letter-spacing: 1px;
+
+    }
+
+
+    .header {
+
+        height: 70px;
+
+        padding: 0 18px;
+
+    }
+
+
+    .logo strong {
+
+        font-size: 22px;
+
+    }
+
+
+    .logo span {
+
+        font-size: 6px;
+
+    }
+
+
+    .nav {
+
+        top: 70px;
+
+    }
+
+
+    .hero {
+
+        min-height: 75vh;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+        64px;
+
+        letter-spacing:
+        -2px;
+
+    }
+
+
+    .intro {
+
+        padding:
+        90px 22px;
+
+        grid-template-columns:
+        1fr;
+
+        gap: 25px;
+
+    }
+
+
+    .intro-number {
+
+        margin-bottom:
+        10px;
+
+    }
+
+
+    .products-section {
+
+        padding:
+        70px 14px;
+
+    }
+
+
+    .section-heading {
+
+        align-items:
+        start;
+
+        flex-direction:
+        column;
+
+        gap: 25px;
+
+        margin-bottom:
+        55px;
+
+    }
+
+
+    .section-heading h2 {
+
+        font-size:
+        58px;
+
+    }
+
+
+    .category-heading h3 {
+
+        font-size:
+        24px;
+
+    }
+
+
+    .category-heading > p {
+
+        font-size:
+        8px;
+
+    }
+
+
+    .product-grid {
+
+        grid-template-columns:
+        repeat(2, 1fr);
+
+        gap: 8px;
+
+    }
+
+
+    .product-image {
+
+        aspect-ratio:
+        4 / 5;
+
+    }
+
+
+    .product-info h4 {
+
+        font-size:
+        16px;
+
+    }
+
+
+    .product-info p {
+
+        font-size:
+        10px;
+
+    }
+
+
+    .product-info a {
+
+        font-size:
+        7px;
+
+    }
+
+
+    .badge {
+
+        font-size:
+        6px;
+
+        padding:
+        6px 7px;
+
+    }
+
+
+    .categories {
+
+        padding:
+        90px 22px;
+
+    }
+
+
+    .category-list a {
+
+        font-size:
+        28px;
+
+    }
+
+
+    .about {
+
+        padding:
+        100px 22px;
+
+    }
+
+
+    .contact {
+
+        padding:
+        100px 22px;
+
+    }
+
+
+    .footer-links {
+
+        flex-wrap:
+        wrap;
+
+    }
+
+
+    .footer-bottom {
+
+        flex-direction:
+        column;
+
+        gap:
+        10px;
+
+    }
+
+}
