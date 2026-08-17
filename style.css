@@ -1,8 +1,12 @@
 /* =====================================================
    XAVI FASHION PLUG
-   LUXURY RESPONSIVE DESIGN
+   LUXURY FASHION WEBSITE
 ===================================================== */
 
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     margin: 0;
@@ -17,7 +21,7 @@ html {
 
 
 body {
-    background: #f7f6f2;
+    background: #f5f4ef;
     color: #111;
     font-family: "Inter", sans-serif;
     overflow-x: hidden;
@@ -36,21 +40,29 @@ a {
 }
 
 
+button,
+input {
+    font-family: inherit;
+}
+
+
 /* =====================================================
    TOP BAR
 ===================================================== */
-
 
 .top-bar {
     background: #111;
     color: #fff;
 
-    text-align: center;
+    min-height: 32px;
 
-    padding: 9px;
+    padding: 8px 5%;
 
-    font-size: 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    font-size: 8px;
     letter-spacing: 2px;
 }
 
@@ -59,24 +71,20 @@ a {
    HEADER
 ===================================================== */
 
-
 .header {
     height: 82px;
 
-    background: #f7f6f2;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
+    background: #f5f4ef;
 
     padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     border-bottom: 1px solid #ddd;
 
     position: sticky;
-
     top: 0;
 
     z-index: 100;
@@ -85,7 +93,6 @@ a {
 
 .logo {
     display: flex;
-
     flex-direction: column;
 
     line-height: 1;
@@ -93,13 +100,11 @@ a {
 
 
 .logo strong {
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
-    font-size: 28px;
+    font-size: 30px;
 
-    letter-spacing: 4px;
+    letter-spacing: 5px;
 }
 
 
@@ -108,19 +113,21 @@ a {
 
     letter-spacing: 3px;
 
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
 
 .nav {
     display: flex;
 
-    gap: 35px;
+    align-items: center;
+
+    gap: 30px;
 }
 
 
 .nav a {
-    font-size: 10px;
+    font-size: 9px;
 
     letter-spacing: 1.5px;
 
@@ -129,29 +136,39 @@ a {
 
 
 .nav a:hover {
-    opacity: .5;
+    opacity: .45;
 }
 
 
-.header-order {
+.header-button {
     border: 1px solid #111;
 
-    padding: 11px 23px;
+    padding: 12px 22px;
 
-    font-size: 9px;
+    font-size: 8px;
 
     letter-spacing: 2px;
+
+    transition: .3s;
+}
+
+
+.header-button:hover {
+    background: #111;
+    color: white;
 }
 
 
 .menu-toggle {
     display: none;
 
-    border: 0;
+    border: none;
 
-    background: none;
+    background: transparent;
 
     font-size: 23px;
+
+    cursor: pointer;
 }
 
 
@@ -159,45 +176,51 @@ a {
    HERO
 ===================================================== */
 
-
 .hero {
-
     min-height: 88vh;
 
     position: relative;
 
     display: flex;
-
     align-items: center;
 
-    background:
-    linear-gradient(
-        90deg,
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.25)
-    ),
-    url("black tshirt.jpeg");
+    color: white;
+
+    background-image:
+        url("black tshirt.jpeg");
 
     background-size: cover;
 
     background-position: center;
+}
 
-    color: white;
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.78),
+            rgba(0,0,0,.25)
+        );
 }
 
 
 .hero-content {
+    position: relative;
 
     width: 90%;
 
-    max-width: 1200px;
+    max-width: 1250px;
 
     margin: auto;
 }
 
 
 .eyebrow {
-
     font-size: 9px;
 
     letter-spacing: 3px;
@@ -207,52 +230,49 @@ a {
 
 
 .hero h1 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(
         65px,
-        10vw,
-        145px
+        11vw,
+        150px
     );
 
     font-weight: 500;
 
-    line-height: .8;
+    line-height: .78;
 
-    letter-spacing: -3px;
+    letter-spacing: -4px;
 
-    margin-bottom: 35px;
+    margin-bottom: 38px;
 }
 
 
-.hero-content > p:not(.eyebrow) {
+.hero-description {
+    max-width: 430px;
 
-    max-width: 450px;
-
-    line-height: 1.8;
+    color: #ddd;
 
     font-size: 13px;
+
+    line-height: 1.8;
 
     margin-bottom: 35px;
 }
 
 
 .main-button {
-
     display: inline-flex;
 
     align-items: center;
 
     gap: 35px;
 
+    padding: 17px 24px;
+
     background: white;
 
     color: #111;
-
-    padding: 17px 23px;
 
     font-size: 9px;
 
@@ -263,17 +283,28 @@ a {
 
 
 .main-button:hover {
-
     background: #111;
 
     color: white;
-
 }
 
 
 .main-button span {
-
     font-size: 18px;
+}
+
+
+.main-button.dark {
+    background: #111;
+
+    color: white;
+}
+
+
+.main-button.dark:hover {
+    background: white;
+
+    color: #111;
 }
 
 
@@ -281,9 +312,7 @@ a {
    INTRO
 ===================================================== */
 
-
 .intro {
-
     max-width: 1100px;
 
     margin: auto;
@@ -292,118 +321,103 @@ a {
 
     display: grid;
 
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 80px 1fr;
 
-    gap: 60px;
+    gap: 70px;
 }
 
 
 .intro-number {
-
-    font-size: 10px;
+    font-size: 9px;
 
     letter-spacing: 2px;
 }
 
 
 .intro h2 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(
-        55px,
-        8vw,
-        100px
+        60px,
+        9vw,
+        110px
     );
 
-    line-height: .85;
+    line-height: .82;
 
     font-weight: 500;
 
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
 
 .intro h2 em {
+    color: #777;
 
     font-weight: 400;
-
-    color: #777;
 }
 
 
 .intro-text {
+    max-width: 550px;
 
-    max-width: 500px;
+    color: #666;
 
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.9;
-
-    color: #555;
 }
 
 
 /* =====================================================
-   SECTION HEADINGS
+   PRODUCTS
 ===================================================== */
 
-
 .products-section {
-
     padding: 100px 5%;
 }
 
 
 .section-heading {
+    max-width: 1300px;
 
-    max-width: 1200px;
-
-    margin: auto auto 80px;
+    margin: 0 auto 80px;
 
     display: flex;
 
     justify-content: space-between;
 
-    align-items: end;
+    align-items: flex-end;
 }
 
 
 .section-heading h2 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(
         55px,
         8vw,
-        100px
+        105px
     );
 
-    line-height: .8;
-
     font-weight: 500;
+
+    line-height: .8;
 }
 
 
 .section-heading > p {
+    color: #777;
 
-    color: #666;
-
-    font-size: 12px;
+    font-size: 11px;
 }
 
 
 /* =====================================================
-   CATEGORY BLOCK
+   CATEGORY
 ===================================================== */
 
-
 .category-block {
-
     max-width: 1300px;
 
     margin: 0 auto 110px;
@@ -411,6 +425,9 @@ a {
 
 
 .category-heading {
+    border-top: 1px solid #ccc;
+
+    padding: 25px 0;
 
     display: flex;
 
@@ -418,16 +435,11 @@ a {
 
     align-items: center;
 
-    border-top: 1px solid #ccc;
-
-    padding: 25px 0;
-
     margin-bottom: 25px;
 }
 
 
 .category-heading div {
-
     display: flex;
 
     align-items: center;
@@ -437,18 +449,14 @@ a {
 
 
 .category-heading span {
+    color: #888;
 
     font-size: 9px;
-
-    color: #777;
 }
 
 
 .category-heading h3 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: 28px;
 
@@ -457,8 +465,7 @@ a {
 
 
 .category-heading > p {
-
-    font-size: 9px;
+    font-size: 8px;
 
     letter-spacing: 2px;
 }
@@ -468,41 +475,30 @@ a {
    PRODUCT GRID
 ===================================================== */
 
-
 .product-grid {
-
     display: grid;
 
     grid-template-columns:
-    repeat(4, 1fr);
+        repeat(4, 1fr);
 
     gap: 18px;
 }
 
 
-/* =====================================================
-   PRODUCT CARD
-===================================================== */
-
-
 .product-card {
-
-    background: #fff;
+    background: white;
 
     transition:
-    transform .4s ease,
-    box-shadow .4s ease;
+        transform .4s ease,
+        box-shadow .4s ease;
 }
 
 
 .product-card:hover {
-
-    transform:
-    translateY(-7px);
+    transform: translateY(-7px);
 
     box-shadow:
-    0 20px 40px
-    rgba(0,0,0,.08);
+        0 20px 45px rgba(0,0,0,.09);
 }
 
 
@@ -510,9 +506,7 @@ a {
    PRODUCT IMAGE
 ===================================================== */
 
-
 .product-image {
-
     position: relative;
 
     width: 100%;
@@ -521,69 +515,59 @@ a {
 
     overflow: hidden;
 
-    background: #eee;
+    background: #e8e7e3;
 }
 
 
 .product-image img {
-
     width: 100%;
 
     height: 100%;
 
     object-fit: cover;
 
-    transition:
-    transform .7s ease;
-
     cursor: zoom-in;
+
+    transition:
+        transform .7s ease;
 }
 
 
 .product-card:hover
 .product-image img {
-
-    transform:
-    scale(1.05);
+    transform: scale(1.05);
 }
 
 
 .badge {
-
     position: absolute;
 
     top: 12px;
-
     left: 12px;
+
+    padding: 7px 10px;
 
     background: #111;
 
     color: white;
 
-    padding: 7px 10px;
-
-    font-size: 7px;
+    font-size: 6px;
 
     letter-spacing: 1.5px;
 }
 
 
 /* =====================================================
-   PRODUCT INFORMATION
+   PRODUCT INFO
 ===================================================== */
 
-
 .product-info {
-
-    padding: 18px 15px 20px;
+    padding: 18px 15px 21px;
 }
 
 
 .product-info h4 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: 20px;
 
@@ -594,25 +578,22 @@ a {
 
 
 .product-info p {
-
-    font-size: 11px;
-
     color: #666;
+
+    font-size: 10px;
 
     margin-bottom: 16px;
 }
 
 
 .product-info a {
-
     display: inline-block;
 
-    border-bottom:
-    1px solid #111;
+    border-bottom: 1px solid #111;
 
     padding-bottom: 5px;
 
-    font-size: 8px;
+    font-size: 7px;
 
     letter-spacing: 2px;
 }
@@ -622,67 +603,378 @@ a {
    CATEGORIES
 ===================================================== */
 
-
 .categories {
+    padding: 120px 5%;
 
     background: #111;
 
     color: white;
-
-    padding: 120px 5%;
 }
 
 
 .categories .section-heading {
-
     margin-bottom: 60px;
 }
 
 
-.categories h2 {
-
-    color: white;
-}
-
-
 .category-list {
-
     max-width: 1200px;
 
     margin: auto;
 
-    border-top:
-    1px solid #444;
+    border-top: 1px solid #444;
 }
 
 
 .category-list a {
-
     display: flex;
 
     justify-content: space-between;
 
     align-items: center;
 
-    padding: 25px 0;
+    padding: 28px 0;
 
-    border-bottom:
-    1px solid #444;
+    border-bottom: 1px solid #444;
 
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
-    font-size: 35px;
+    font-size: 38px;
 
     transition: .3s;
 }
 
 
 .category-list a:hover {
-
     padding-left: 20px;
+}
 
+
+/* =====================================================
+   MEMBERSHIP
+===================================================== */
+
+.membership {
+    background: #e8e5df;
+
+    padding: 130px 5%;
+}
+
+
+.membership-wrapper {
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    align-items: start;
+}
+
+
+.membership-intro h2 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(
+        65px,
+        9vw,
+        115px
+    );
+
+    font-weight: 500;
+
+    line-height: .78;
+
+    margin-bottom: 40px;
+}
+
+
+.membership-intro > p:last-child {
+    max-width: 450px;
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+.membership-panel {
+    background: #fff;
+
+    padding: 45px;
+}
+
+
+.auth-box + .auth-box {
+    border-top: 1px solid #ddd;
+
+    margin-top: 50px;
+
+    padding-top: 50px;
+}
+
+
+.form-label {
+    color: #777;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+.auth-box h3 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 40px;
+
+    font-weight: 500;
+
+    margin-bottom: 35px;
+}
+
+
+.input-group {
+    margin-bottom: 23px;
+}
+
+
+.input-group label {
+    display: block;
+
+    color: #777;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 9px;
+}
+
+
+.input-group input {
+    width: 100%;
+
+    border: none;
+
+    border-bottom: 1px solid #aaa;
+
+    background: transparent;
+
+    outline: none;
+
+    padding: 13px 0;
+
+    font-size: 13px;
+}
+
+
+.input-group input:focus {
+    border-bottom-color: #111;
+}
+
+
+.check-row {
+    display: flex;
+
+    gap: 9px;
+
+    align-items: flex-start;
+
+    margin: 25px 0;
+
+    color: #777;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    cursor: pointer;
+}
+
+
+.check-row input {
+    margin-top: 2px;
+}
+
+
+.form-button {
+    width: 100%;
+
+    border: none;
+
+    padding: 17px;
+
+    background: #111;
+
+    color: white;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+
+.form-button:hover {
+    background: #333;
+}
+
+
+.dark-button {
+    background: #111;
+}
+
+
+.form-message {
+    margin-top: 15px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   NEWSLETTER
+===================================================== */
+
+.newsletter {
+    padding: 130px 5%;
+
+    background: #111;
+
+    color: white;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+.newsletter h2 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(
+        65px,
+        9vw,
+        115px
+    );
+
+    font-weight: 500;
+
+    line-height: .78;
+
+    margin-bottom: 35px;
+}
+
+
+.newsletter > div > p:last-child {
+    max-width: 450px;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+.newsletter-form {
+    max-width: 550px;
+
+    margin-left: auto;
+
+    width: 100%;
+}
+
+
+.newsletter-form > label:first-child {
+    display: block;
+
+    color: #aaa;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+.newsletter-input {
+    display: flex;
+
+    border-bottom: 1px solid #777;
+}
+
+
+.newsletter-input input {
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 16px 0;
+
+    font-size: 13px;
+}
+
+
+.newsletter-input input::placeholder {
+    color: #666;
+}
+
+
+.newsletter-input button {
+    width: 60px;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+.newsletter-consent {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    line-height: 1.5;
 }
 
 
@@ -690,24 +982,19 @@ a {
    ABOUT
 ===================================================== */
 
-
 .about {
+    padding: 150px 5%;
 
-    max-width: 900px;
+    max-width: 1000px;
 
     margin: auto;
-
-    padding: 150px 5%;
 
     text-align: center;
 }
 
 
 .about h2 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(
         60px,
@@ -724,16 +1011,15 @@ a {
 
 
 .about > p:last-child {
-
     max-width: 550px;
 
     margin: auto;
 
-    line-height: 1.9;
-
     color: #666;
 
     font-size: 13px;
+
+    line-height: 1.9;
 }
 
 
@@ -741,58 +1027,38 @@ a {
    CONTACT
 ===================================================== */
 
-
 .contact {
-
     background: #e8e5df;
 
-    padding: 120px 5%;
-
     text-align: center;
+
+    padding: 120px 5%;
 }
 
 
 .contact h2 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
+    font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(
-        60px,
-        9vw,
-        110px
+        65px,
+        10vw,
+        120px
     );
 
-    font-weight: 500;
-
     line-height: .8;
+
+    font-weight: 500;
 
     margin-bottom: 30px;
 }
 
 
-.contact p:not(.eyebrow) {
+.contact > p:not(.eyebrow) {
+    color: #666;
 
-    color: #555;
+    font-size: 13px;
 
     margin-bottom: 35px;
-}
-
-
-.contact .main-button {
-
-    background: #111;
-
-    color: white;
-}
-
-
-.contact .main-button:hover {
-
-    background: white;
-
-    color: #111;
 }
 
 
@@ -800,9 +1066,7 @@ a {
    FOOTER
 ===================================================== */
 
-
 footer {
-
     background: #111;
 
     color: white;
@@ -812,57 +1076,50 @@ footer {
 
 
 .footer-logo {
-
     display: flex;
 
     flex-direction: column;
 
-    margin-bottom: 70px;
+    margin-bottom: 60px;
 }
 
 
 .footer-logo strong {
+    font-family: "Cormorant Garamond", serif;
 
-    font-family:
-    "Cormorant Garamond",
-    serif;
-
-    font-size: 55px;
+    font-size: 60px;
 
     letter-spacing: 5px;
 }
 
 
 .footer-logo span {
-
-    font-size: 8px;
+    font-size: 7px;
 
     letter-spacing: 3px;
 }
 
 
 .footer-links {
-
     display: flex;
 
-    gap: 35px;
+    flex-wrap: wrap;
+
+    gap: 30px;
 
     margin-bottom: 60px;
 }
 
 
 .footer-links a {
-
-    font-size: 9px;
+    font-size: 8px;
 
     letter-spacing: 2px;
 }
 
 
 .footer-bottom {
-
-    border-top:
-    1px solid #333;
+    border-top: 1px solid #333;
 
     padding-top: 20px;
 
@@ -870,11 +1127,11 @@ footer {
 
     justify-content: space-between;
 
+    color: #777;
+
     font-size: 8px;
 
-    letter-spacing: 1.5px;
-
-    color: #999;
+    letter-spacing: 1px;
 }
 
 
@@ -882,15 +1139,10 @@ footer {
    LIGHTBOX
 ===================================================== */
 
-
 .lightbox {
-
     position: fixed;
 
     inset: 0;
-
-    background:
-    rgba(0,0,0,.92);
 
     z-index: 1000;
 
@@ -901,17 +1153,17 @@ footer {
     justify-content: center;
 
     padding: 30px;
+
+    background: rgba(0,0,0,.94);
 }
 
 
 .lightbox.active {
-
     display: flex;
 }
 
 
 .lightbox img {
-
     max-width: 90vw;
 
     max-height: 90vh;
@@ -923,22 +1175,56 @@ footer {
 
 
 .lightbox-close {
-
     position: absolute;
 
-    top: 25px;
+    top: 20px;
 
     right: 30px;
 
-    background: none;
-
     border: none;
+
+    background: transparent;
 
     color: white;
 
-    font-size: 40px;
+    font-size: 45px;
 
     cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .nav {
+        gap: 17px;
+    }
+
+
+    .nav a {
+        font-size: 8px;
+    }
+
+
+    .product-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .membership-wrapper,
+    .newsletter {
+        grid-template-columns: 1fr;
+    }
+
+
+    .newsletter-form {
+        margin-left: 0;
+    }
+
 }
 
 
@@ -946,534 +1232,265 @@ footer {
    MOBILE
 ===================================================== */
 
+@media (max-width: 700px) {
 
-@media (max-width: 900px) {
+    .top-bar {
+        justify-content: center;
+
+        font-size: 7px;
+    }
+
+
+    .top-bar span:last-child {
+        display: none;
+    }
+
+
+    .header {
+        height: 70px;
+
+        padding: 0 18px;
+    }
+
+
+    .logo strong {
+        font-size: 23px;
+    }
+
+
+    .logo span {
+        font-size: 6px;
+    }
+
+
+    .menu-toggle {
+        display: block;
+    }
 
 
     .nav {
-
         position: absolute;
 
-        top: 82px;
+        top: 70px;
 
         left: 0;
 
         width: 100%;
 
-        background: #f7f6f2;
+        background: #f5f4ef;
+
+        padding: 25px;
 
         display: none;
 
         flex-direction: column;
 
-        padding: 25px 5%;
+        align-items: flex-start;
 
-        border-bottom:
-        1px solid #ddd;
+        gap: 23px;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    .nav.show {
+        display: flex;
+    }
+
+
+    .header-button {
+        padding: 9px 13px;
+    }
+
+
+    .hero {
+        min-height: 78vh;
+    }
+
+
+    .hero-content {
+        width: 90%;
+    }
+
+
+    .hero h1 {
+        font-size: 65px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .intro {
+        padding: 90px 22px;
+
+        grid-template-columns: 1fr;
 
         gap: 25px;
     }
 
 
-    .nav.show {
-
-        display: flex;
-
+    .intro h2 {
+        font-size: 65px;
     }
 
 
-    .menu-toggle {
-
-        display: block;
-
-        order: -1;
+    .products-section {
+        padding: 75px 14px;
     }
 
 
-    .header-order {
+    .section-heading {
+        flex-direction: column;
 
-        padding: 9px 14px;
+        align-items: flex-start;
 
+        gap: 25px;
+
+        margin-bottom: 55px;
     }
 
 
-    .product-grid {
-
-        grid-template-columns:
-        repeat(2, 1fr);
-
-        gap: 12px;
-
-    }
-
-
-    .product-info {
-
-        padding: 14px 10px 18px;
-
-    }
-
-
-    .product-info h4 {
-
-        font-size: 18px;
-
+    .section-heading h2 {
+        font-size: 60px;
     }
 
 
     .category-heading {
-
-        align-items: start;
+        align-items: flex-start;
 
         flex-direction: column;
 
         gap: 12px;
+    }
 
+
+    .category-heading h3 {
+        font-size: 23px;
+    }
+
+
+    .product-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 9px;
+    }
+
+
+    .product-info {
+        padding: 13px 10px 18px;
+    }
+
+
+    .product-info h4 {
+        font-size: 17px;
+    }
+
+
+    .product-info p {
+        font-size: 9px;
+    }
+
+
+    .categories {
+        padding: 90px 22px;
+    }
+
+
+    .category-list a {
+        font-size: 30px;
+    }
+
+
+    .membership {
+        padding: 90px 18px;
+    }
+
+
+    .membership-wrapper {
+        gap: 50px;
+    }
+
+
+    .membership-intro h2 {
+        font-size: 68px;
+    }
+
+
+    .membership-panel {
+        padding: 28px 20px;
+    }
+
+
+    .newsletter {
+        padding: 90px 22px;
+
+        gap: 55px;
+    }
+
+
+    .newsletter h2 {
+        font-size: 68px;
+    }
+
+
+    .about {
+        padding: 100px 22px;
+    }
+
+
+    .about h2 {
+        font-size: 70px;
+    }
+
+
+    .contact {
+        padding: 90px 22px;
+    }
+
+
+    .contact h2 {
+        font-size: 70px;
+    }
+
+
+    .footer-links {
+        gap: 20px;
+    }
+
+
+    .footer-bottom {
+        flex-direction: column;
+
+        gap: 10px;
     }
 
 }
 
 
 /* =====================================================
-   SMALL PHONES
+   VERY SMALL PHONES
 ===================================================== */
 
-
-@media (max-width: 500px) {
-
-
-    .top-bar {
-
-        font-size: 7px;
-
-        letter-spacing: 1px;
-
-    }
-
-
-    .header {
-
-        height: 70px;
-
-        padding: 0 18px;
-
-    }
-
-
-    .logo strong {
-
-        font-size: 22px;
-
-    }
-
-
-    .logo span {
-
-        font-size: 6px;
-
-    }
-
-
-    .nav {
-
-        top: 70px;
-
-    }
-
-
-    .hero {
-
-        min-height: 75vh;
-
-    }
-
-
-    .hero h1 {
-
-        font-size:
-        64px;
-
-        letter-spacing:
-        -2px;
-
-    }
-
-
-    .intro {
-
-        padding:
-        90px 22px;
-
-        grid-template-columns:
-        1fr;
-
-        gap: 25px;
-
-    }
-
-
-    .intro-number {
-
-        margin-bottom:
-        10px;
-
-    }
-
-
-    .products-section {
-
-        padding:
-        70px 14px;
-
-    }
-
-
-    .section-heading {
-
-        align-items:
-        start;
-
-        flex-direction:
-        column;
-
-        gap: 25px;
-
-        margin-bottom:
-        55px;
-
-    }
-
-
-    .section-heading h2 {
-
-        font-size:
-        58px;
-
-    }
-
-
-    .category-heading h3 {
-
-        font-size:
-        24px;
-
-    }
-
-
-    .category-heading > p {
-
-        font-size:
-        8px;
-
-    }
-
+@media (max-width: 400px) {
 
     .product-grid {
-
-        grid-template-columns:
-        repeat(2, 1fr);
-
-        gap: 8px;
-
-    }
-
-
-    .product-image {
-
-        aspect-ratio:
-        4 / 5;
-
+        gap: 6px;
     }
 
 
     .product-info h4 {
-
-        font-size:
-        16px;
-
-    }
-
-
-    .product-info p {
-
-        font-size:
-        10px;
-
+        font-size: 15px;
     }
 
 
     .product-info a {
-
-        font-size:
-        7px;
-
+        font-size: 6px;
     }
 
 
-    .badge {
-
-        font-size:
-        6px;
-
-        padding:
-        6px 7px;
-
+    .membership-panel {
+        padding: 22px 15px;
     }
 
-
-    .categories {
-
-        padding:
-        90px 22px;
-
-    }
-
-
-    .category-list a {
-
-        font-size:
-        28px;
-
-    }
-
-
-    .about {
-
-        padding:
-        100px 22px;
-
-    }
-
-
-    .contact {
-
-        padding:
-        100px 22px;
-
-    }
-
-
-    .footer-links {
-
-        flex-wrap:
-        wrap;
-
-    }
-
-
-    .footer-bottom {
-
-        flex-direction:
-        column;
-
-        gap:
-        10px;
-
-    }
-/* ==========================================
-   MEMBERSHIP SECTION
-========================================== */
-
-.membership {
-
-    background: #111;
-
-    color: white;
-
-    padding: 130px 5%;
-
-    text-align: center;
-}
-
-
-.membership-content {
-
-    max-width: 650px;
-
-    margin: auto;
-}
-
-
-.membership h2 {
-
-    font-family:
-    "Cormorant Garamond",
-    serif;
-
-    font-size: clamp(
-        60px,
-        10vw,
-        110px
-    );
-
-    line-height: .8;
-
-    font-weight: 500;
-
-    margin-bottom: 35px;
-}
-
-
-.membership-text {
-
-    max-width: 500px;
-
-    margin: 0 auto 45px;
-
-    color: #aaa;
-
-    font-size: 13px;
-
-    line-height: 1.9;
-}
-
-
-.membership-form {
-
-    text-align: left;
-}
-
-
-.form-group {
-
-    margin-bottom: 25px;
-}
-
-
-.form-group label {
-
-    display: block;
-
-    font-size: 8px;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 10px;
-
-    color: #aaa;
-}
-
-
-.form-group input {
-
-    width: 100%;
-
-    background: transparent;
-
-    border: none;
-
-    border-bottom: 1px solid #555;
-
-    color: white;
-
-    padding: 15px 0;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    outline: none;
-
-    transition: .3s;
-}
-
-
-.form-group input:focus {
-
-    border-bottom-color: white;
-}
-
-
-.form-group input::placeholder {
-
-    color: #666;
-}
-
-
-.consent {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 10px;
-
-    margin: 25px 0;
-
-    color: #888;
-
-    font-size: 10px;
-
-    line-height: 1.6;
-
-    cursor: pointer;
-}
-
-
-.consent input {
-
-    margin-top: 3px;
-
-    accent-color: white;
-}
-
-
-.membership-button {
-
-    width: 100%;
-
-    padding: 18px;
-
-    border: none;
-
-    background: white;
-
-    color: #111;
-
-    font-family: inherit;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-
-.membership-button:hover {
-
-    background: #ddd;
-
-}
-
-
-.membership-message {
-
-    margin-top: 20px;
-
-    font-size: 11px;
-
-    color: #aaa;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    .membership {
-
-        padding: 90px 22px;
-
-    }
-
-    .membership h2 {
-
-        font-size: 65px;
-
-    }
-
-}
 }
