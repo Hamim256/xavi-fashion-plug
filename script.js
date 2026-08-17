@@ -1,122 +1,390 @@
 /* =====================================================
    XAVI FASHION PLUG
-   SUPABASE MEMBERSHIP + LOGIN + NEWSLETTER
+   COMPLETE WEBSITE JAVASCRIPT
 ===================================================== */
 
 
 /* =====================================================
-   CHECK SUPABASE CONNECTION
+   MOBILE MENU
 ===================================================== */
 
-if (typeof supabaseClient === "undefined") {
-    console.error(
-        "Supabase is not connected. Check supabase.js and index.html."
-    );
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const mainNav =
+    document.getElementById("mainNav");
+
+
+if (menuToggle && mainNav) {
+
+    menuToggle.addEventListener("click", function () {
+
+        mainNav.classList.toggle("show");
+
+        if (mainNav.classList.contains("show")) {
+
+            menuToggle.textContent = "×";
+
+        } else {
+
+            menuToggle.textContent = "☰";
+
+        }
+
+    });
+
+
+    document
+        .querySelectorAll(".main-nav a")
+        .forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                mainNav.classList.remove("show");
+
+                menuToggle.textContent = "☰";
+
+            });
+
+        });
+
 }
 
 
 /* =====================================================
-   REGISTER MEMBER
+   PRODUCT GALLERIES
+===================================================== */
+
+document
+    .querySelectorAll(".product-card")
+    .forEach(function (card) {
+
+        const mainImage =
+            card.querySelector(".product-image img");
+
+        const thumbnails =
+            card.querySelectorAll(".gallery-thumbnails img");
+
+
+        thumbnails.forEach(function (thumbnail) {
+
+            thumbnail.addEventListener(
+                "click",
+                function () {
+
+                    mainImage.src =
+                        thumbnail.src;
+
+                    mainImage.alt =
+                        thumbnail.alt;
+
+                }
+            );
+
+        });
+
+    });
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImage =
+    document.getElementById("lightboxImage");
+
+const lightboxClose =
+    document.getElementById("lightboxClose");
+
+
+document
+    .querySelectorAll(".product-image img")
+    .forEach(function (image) {
+
+        image.addEventListener(
+            "click",
+            function () {
+
+                lightboxImage.src =
+                    image.src;
+
+                lightboxImage.alt =
+                    image.alt;
+
+                lightbox.classList.add("active");
+
+                lightbox.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+                document.body.style.overflow =
+                    "hidden";
+
+            }
+        );
+
+    });
+
+
+function closeLightbox() {
+
+    lightbox.classList.remove("active");
+
+    lightbox.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.style.overflow = "";
+
+}
+
+
+if (lightboxClose) {
+
+    lightboxClose.addEventListener(
+        "click",
+        closeLightbox
+    );
+
+}
+
+
+if (lightbox) {
+
+    lightbox.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === lightbox) {
+
+                closeLightbox();
+
+            }
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Escape") {
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CHECK SUPABASE
+===================================================== */
+
+if (typeof supabaseClient === "undefined") {
+
+    console.error(
+        "XAVI ERROR: Supabase is not connected."
+    );
+
+}
+
+
+/* =====================================================
+   REGISTER
 ===================================================== */
 
 const registerForm =
     document.getElementById("registerForm");
 
+
 if (registerForm) {
 
-    registerForm.addEventListener("submit", async function (event) {
+    registerForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
-
-        const name =
-            document.getElementById("registerName").value.trim();
-
-        const email =
-            document.getElementById("registerEmail").value.trim();
-
-        const password =
-            document.getElementById("registerPassword").value;
-
-        const message =
-            document.getElementById("registerMessage");
+            event.preventDefault();
 
 
-        message.textContent = "Creating your Xavi account...";
+            const name =
+                document
+                    .getElementById("registerName")
+                    .value
+                    .trim();
 
 
-        try {
-
-            const { data, error } =
-                await supabaseClient.auth.signUp({
-
-                    email: email,
-
-                    password: password,
-
-                    options: {
-
-                        data: {
-                            full_name: name
-                        },
-
-                        emailRedirectTo:
-                            window.location.origin +
-                            window.location.pathname
-
-                    }
-
-                });
+            const email =
+                document
+                    .getElementById("registerEmail")
+                    .value
+                    .trim();
 
 
-            if (error) {
+            const password =
+                document
+                    .getElementById("registerPassword")
+                    .value;
 
-                console.error(error);
+
+            const message =
+                document
+                    .getElementById("registerMessage");
+
+
+            if (!name || !email || !password) {
 
                 message.textContent =
-                    error.message;
+                    "Please complete all fields.";
 
                 return;
 
             }
 
 
-            /*
-             If email confirmation is enabled,
-             Supabase normally sends a confirmation email.
-            */
-
-            if (data.user && !data.session) {
+            if (password.length < 6) {
 
                 message.textContent =
-                    "Account created! Please check your email and confirm your Xavi Fashion Plug account.";
+                    "Password must contain at least 6 characters.";
 
-            } else {
-
-                message.textContent =
-                    "Welcome to Xavi Fashion Plug! Your account has been created.";
+                return;
 
             }
 
 
-            registerForm.reset();
-
-
-        } catch (error) {
-
-            console.error(error);
-
             message.textContent =
-                "Something went wrong. Please try again.";
+                "Creating your Xavi account...";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.signUp({
+
+                        email: email,
+
+                        password: password,
+
+                        options: {
+
+                            data: {
+                                full_name: name
+                            }
+
+                        }
+
+                    });
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        error.message;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Save the member profile.
+                 *
+                 * If email confirmation is enabled,
+                 * the user may not have a session yet.
+                 */
+
+                if (data.user) {
+
+                    /*
+                     * Only try to insert the profile
+                     * when there is an authenticated
+                     * session.
+                     */
+
+                    if (data.session) {
+
+                        const {
+                            error: profileError
+                        } =
+                            await supabaseClient
+                                .from(
+                                    "member_profiles"
+                                )
+                                .insert({
+
+                                    id:
+                                        data.user.id,
+
+                                    full_name:
+                                        name
+
+                                });
+
+
+                        if (profileError) {
+
+                            console.error(
+                                "Profile error:",
+                                profileError
+                            );
+
+                        }
+
+                    }
+
+                }
+
+
+                registerForm.reset();
+
+
+                if (!data.session) {
+
+                    message.textContent =
+                        "Account created! Check your email and confirm your account.";
+
+                } else {
+
+                    message.textContent =
+                        "Welcome to Xavi Fashion Plug! Your account is ready.";
+
+                    showMember(
+                        name
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Something went wrong. Please try again.";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
 
 /* =====================================================
-   LOGIN MEMBER
+   LOGIN
 ===================================================== */
 
 const loginForm =
@@ -125,166 +393,410 @@ const loginForm =
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", async function (event) {
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
-
-
-        const email =
-            document.getElementById("loginEmail").value.trim();
-
-        const password =
-            document.getElementById("loginPassword").value;
-
-        const message =
-            document.getElementById("loginMessage");
+            event.preventDefault();
 
 
-        message.textContent =
-            "Signing you in...";
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
 
 
-        try {
-
-            const { data, error } =
-                await supabaseClient.auth.signInWithPassword({
-
-                    email: email,
-
-                    password: password
-
-                });
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
 
 
-            if (error) {
+            const message =
+                document
+                    .getElementById("loginMessage");
+
+
+            message.textContent =
+                "Signing you in...";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
+
+                            email: email,
+
+                            password: password
+
+                        });
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        error.message;
+
+                    return;
+
+                }
+
+
+                loginForm.reset();
+
+
+                message.textContent =
+                    "Login successful!";
+
+
+                let name =
+                    data.user.user_metadata
+                        ?.full_name;
+
+
+                if (!name) {
+
+                    const {
+                        data: profile
+                    } =
+                        await supabaseClient
+                            .from(
+                                "member_profiles"
+                            )
+                            .select("full_name")
+                            .eq(
+                                "id",
+                                data.user.id
+                            )
+                            .maybeSingle();
+
+
+                    if (profile) {
+
+                        name =
+                            profile.full_name;
+
+                    }
+
+                }
+
+
+                showMember(
+                    name || "Xavi Member"
+                );
+
+
+            } catch (error) {
 
                 console.error(error);
 
                 message.textContent =
-                    error.message;
-
-                return;
+                    "Login failed. Please try again.";
 
             }
 
+        }
+    );
 
-            message.textContent =
-                "Login successful. Welcome back!";
-
-
-            loginForm.reset();
+}
 
 
-            /*
-             You can later change this to:
-             window.location.href = "account.html";
-            */
+/* =====================================================
+   SHOW MEMBER
+===================================================== */
 
-        } catch (error) {
+function showMember(name) {
 
-            console.error(error);
+    const welcome =
+        document.getElementById(
+            "memberWelcome"
+        );
 
-            message.textContent =
-                "Unable to login. Please try again.";
+    const memberName =
+        document.getElementById(
+            "memberName"
+        );
+
+
+    if (welcome && memberName) {
+
+        memberName.textContent =
+            name;
+
+        welcome.classList.remove(
+            "hidden"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth
+                        .signOut();
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    return;
+
+                }
+
+
+                document
+                    .getElementById(
+                        "memberWelcome"
+                    )
+                    .classList.add(
+                        "hidden"
+                    );
+
+
+                alert(
+                    "You have been logged out."
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CHECK EXISTING LOGIN
+===================================================== */
+
+async function checkExistingMember() {
+
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth
+                .getUser();
+
+
+        if (!data.user) {
+
+            return;
 
         }
 
-    });
+
+        let name =
+            data.user.user_metadata
+                ?.full_name;
+
+
+        if (!name) {
+
+            const {
+                data: profile
+            } =
+                await supabaseClient
+                    .from(
+                        "member_profiles"
+                    )
+                    .select("full_name")
+                    .eq(
+                        "id",
+                        data.user.id
+                    )
+                    .maybeSingle();
+
+
+            if (profile) {
+
+                name =
+                    profile.full_name;
+
+            }
+
+        }
+
+
+        showMember(
+            name || "Xavi Member"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
 
 }
 
 
-/* =====================================================
-   CHECK CURRENT MEMBER
-===================================================== */
-
-async function checkMemberLogin() {
-
-    if (typeof supabaseClient === "undefined") {
-        return;
-    }
-
-
-    const {
-        data: { user }
-    } = await supabaseClient.auth.getUser();
-
-
-    if (user) {
-
-        console.log(
-            "Xavi member currently logged in:",
-            user.email
-        );
-
-    } else {
-
-        console.log(
-            "No Xavi member currently logged in."
-        );
-
-    }
-
-}
-
-
-checkMemberLogin();
+checkExistingMember();
 
 
 /* =====================================================
-   LOGOUT FUNCTION
+   NEWSLETTER
 ===================================================== */
 
-async function logoutMember() {
-
-    if (typeof supabaseClient === "undefined") {
-        return;
-    }
-
-
-    const { error } =
-        await supabaseClient.auth.signOut();
-
-
-    if (error) {
-
-        console.error(
-            "Logout error:",
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    alert(
-        "You have been logged out of Xavi Fashion Plug."
+const newsletterForm =
+    document.getElementById(
+        "newsletterForm"
     );
 
-    window.location.reload();
+
+if (newsletterForm) {
+
+    newsletterForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "newsletterEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const message =
+                document
+                    .getElementById(
+                        "newsletterMessage"
+                    );
+
+
+            message.textContent =
+                "Subscribing...";
+
+
+            try {
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from(
+                            "newsletter_subscribers"
+                        )
+                        .insert({
+
+                            email: email
+
+                        });
+
+
+                if (error) {
+
+                    console.error(error);
+
+
+                    if (
+                        error.code ===
+                        "23505"
+                    ) {
+
+                        message.textContent =
+                            "This email is already subscribed.";
+
+                    } else {
+
+                        message.textContent =
+                            "Subscription failed: " +
+                            error.message;
+
+                    }
+
+                    return;
+
+                }
+
+
+                newsletterForm.reset();
+
+
+                message.textContent =
+                    "You're subscribed! Welcome to Xavi.";
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Unable to subscribe. Please try again.";
+
+            }
+
+        }
+    );
 
 }
 
 
-/*
-Make logoutMember available to HTML buttons.
-*/
-
-window.logoutMember = logoutMember;
-
-
 /* =====================================================
-   AUTHENTICATION STATE
+   AUTH STATE
 ===================================================== */
 
-if (typeof supabaseClient !== "undefined") {
+if (
+    typeof supabaseClient !==
+    "undefined"
+) {
 
     supabaseClient.auth.onAuthStateChange(
         function (event, session) {
 
             console.log(
-                "Xavi authentication:",
+                "Xavi authentication event:",
                 event
             );
 
@@ -305,283 +817,9 @@ if (typeof supabaseClient !== "undefined") {
 
 
 /* =====================================================
-   NEWSLETTER
-===================================================== */
-
-const newsletterForm =
-    document.getElementById("newsletterForm");
-
-
-if (newsletterForm) {
-
-    newsletterForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("newsletterEmail")
-                    .value
-                    .trim();
-
-
-            const message =
-                document
-                    .getElementById("newsletterMessage");
-
-
-            message.textContent =
-                "Subscribing...";
-
-
-            /*
-             IMPORTANT:
-
-             The newsletter requires a
-             Supabase table called:
-
-             newsletter_subscribers
-
-             We will create that table
-             in the next step.
-            */
-
-
-            try {
-
-                const { error } =
-                    await supabaseClient
-                        .from("newsletter_subscribers")
-                        .insert({
-
-                            email: email
-
-                        });
-
-
-                if (error) {
-
-                    console.error(error);
-
-                    /*
-                     If the email already exists,
-                     show a friendly message.
-                    */
-
-                    if (
-                        error.code === "23505"
-                    ) {
-
-                        message.textContent =
-                            "This email is already subscribed.";
-
-                    } else {
-
-                        message.textContent =
-                            error.message;
-
-                    }
-
-                    return;
-
-                }
-
-
-                message.textContent =
-                    "You're subscribed! Welcome to the Xavi community.";
-
-
-                newsletterForm.reset();
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                message.textContent =
-                    "Unable to subscribe right now. Please try again.";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   PRODUCT IMAGE LIGHTBOX
-===================================================== */
-
-const lightbox =
-    document.getElementById("lightbox");
-
-const lightboxImage =
-    document.getElementById("lightboxImage");
-
-const lightboxClose =
-    document.getElementById("lightboxClose");
-
-
-if (
-    lightbox &&
-    lightboxImage &&
-    lightboxClose
-) {
-
-
-    document
-        .querySelectorAll(".product-image img")
-        .forEach(function (image) {
-
-            image.addEventListener(
-                "click",
-                function () {
-
-                    lightboxImage.src =
-                        image.src;
-
-                    lightboxImage.alt =
-                        image.alt;
-
-                    lightbox.classList.add(
-                        "active"
-                    );
-
-                    document.body.style.overflow =
-                        "hidden";
-
-                }
-            );
-
-        });
-
-
-    function closeLightbox() {
-
-        lightbox.classList.remove(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "";
-
-    }
-
-
-    lightboxClose.addEventListener(
-        "click",
-        closeLightbox
-    );
-
-
-    lightbox.addEventListener(
-        "click",
-        function (event) {
-
-            if (
-                event.target === lightbox
-            ) {
-
-                closeLightbox();
-
-            }
-
-        }
-    );
-
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeLightbox();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const mainNav =
-    document.getElementById("mainNav");
-
-
-if (menuToggle && mainNav) {
-
-
-    menuToggle.addEventListener(
-        "click",
-        function () {
-
-            mainNav.classList.toggle(
-                "show"
-            );
-
-
-            if (
-                mainNav.classList.contains(
-                    "show"
-                )
-            ) {
-
-                menuToggle.textContent =
-                    "✕";
-
-            } else {
-
-                menuToggle.textContent =
-                    "☰";
-
-            }
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(".nav a")
-        .forEach(function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    mainNav.classList.remove(
-                        "show"
-                    );
-
-                    menuToggle.textContent =
-                        "☰";
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   FINISHED
+   FINAL MESSAGE
 ===================================================== */
 
 console.log(
-    "Xavi Fashion Plug website loaded successfully."
+    "XAVI FASHION PLUG WEBSITE LOADED"
 );
